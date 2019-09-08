@@ -7,10 +7,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { CoreModule } from '../pages/core/core.module';
 import { AuthModule } from '../pages/auth/auth.module';
+import { UserModule } from '../pages/user/user.module';
 
 @NgModule({
   declarations: [MyApp],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), CoreModule, AuthModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    CoreModule,
+    AuthModule,
+    UserModule
+  ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [

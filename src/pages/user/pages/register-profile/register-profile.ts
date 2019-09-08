@@ -1,0 +1,70 @@
+import { Component, OnInit } from '@angular/core';
+import { NavController, ToastController, Toast } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RegisterPage } from '../../../auth/pages/register/register';
+import { LoginPage } from '../../../auth/pages/login/login';
+
+@Component({
+  selector: 'register-profile',
+  templateUrl: 'register-profile.html'
+})
+export class RegisterProfilePage implements OnInit {
+  headerImageUrl = '../../assets/imgs/person.png';
+  headerTitle = 'اطلاعات شخصی';
+
+  userIconImage = '../../assets/imgs/person.png';
+
+  userProfileForm: FormGroup;
+
+  toast: Toast;
+
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public formBuilder: FormBuilder
+  ) {}
+
+  async ngOnInit() {
+    this.userProfileForm = this.formBuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(5)]]
+    });
+  }
+
+  formErrorCheck() {
+    console.log(this.userProfileForm.get('password'));
+
+    const message = this.userProfileForm.get('firstName').hasError('required')
+      ? ' نام الزامی است'
+      : this.userProfileForm.get('lastName').hasError('required')
+      ? 'نام خانوادگی  نامعتبر است'
+      : this.userProfileForm.get('email').hasError('required')
+      ? 'پست الکترونیک  نامعتبر است'
+      : this.userProfileForm.get('email').hasError('email')
+      ? 'پست الکترونیک نامعتبر است'
+      : this.userProfileForm.get('password').hasError('required')
+      ? 'رمز ورود الزامی است'
+      : this.userProfileForm.get('password').hasError('minlength')
+      ? `رمز عبور باید حداقل شامل ${
+          this.userProfileForm.get('password').errors.minlength.requiredLength
+        } حرف باشد`
+      : 'خطا';
+    return message;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: 2000,
+      cssClass: 'toast'
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
+  }
+}
