@@ -1,0 +1,32 @@
+auth-header {
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .header-container {
+    width: contents;
+    height: 240px;
+    padding: 20px;
+    position: relative;
+    border-bottom: 2px dashed rgb(255, 176, 0);
+    background-color: white;
+
+    .header-text {
+      position: absolute;
+      bottom: 25px;
+      right: 40px;
+      color: rgb(112, 112, 112);
+      font-size: 18px;
+    }
+
+    img {
+      width: 80%;
+      height: 55px;
+      position: absolute;
+      bottom: 30px;
+      left: 10%;
+      right: 10%;
+    }
+  }
+}
