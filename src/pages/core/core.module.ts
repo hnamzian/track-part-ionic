@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
+import { AuthHeaderComponent } from './components/auth-header/auth-header';
 
 @NgModule({
   imports: [CommonModule, IonicModule],
-  declarations: [],
+  declarations: [AuthHeaderComponent],
   entryComponents: [],
-  exports: []
+  exports: [AuthHeaderComponent]
 })
 export class CoreModule {}
