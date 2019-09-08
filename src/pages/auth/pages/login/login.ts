@@ -29,6 +29,19 @@ export class LoginPage implements OnInit {
     });
   }
 
+  formErrorCheck() {
+    const message = this.loginForm.get('mobileNumber').hasError('required')
+      ? 'شماره همراه الزامی است'
+      : this.loginForm.get('mobileNumber').hasError('minlength')
+      ? 'شماره همراه نامعتبر است'
+      : this.loginForm.get('mobileNumber').hasError('maxlength')
+      ? 'شماره همراه نامعتبر است'
+      : this.loginForm.get('password').hasError('required')
+      ? 'رمز عبور الزامی است'
+      : 'خطا';
+    return message;
+  }
+
   navToRegisterPage() {
     this.navCtrl.push(RegisterPage);
   }
