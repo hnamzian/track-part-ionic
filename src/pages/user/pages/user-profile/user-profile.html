@@ -1,0 +1,35 @@
+<ion-content>
+  <div class="header-container row">
+    <div class="header-text">اطلاعات شخصی</div>
+    <img [src]="userIconImage" alt="" />
+    <img class="path-img" src="../../../../assets/imgs/Path 33.png" alt="" />
+  </div>
+
+  <form
+    class="form-container"
+    [formGroup]="userProfileForm"
+    (ngSubmit)="updateProfile()"
+  >
+    <ion-list class="prep-input-list">
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>نام</span>
+        <input class="prep-input" type="text" formControlName="firstName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>نام خانوادگی</span>
+        <input class="prep-input" type="text" formControlName="lastName" />
+      </ion-item>
+      <ion-item class="prep-input-item email-input-item" no-lines>
+        <span class="prep-input-span email-icon-wrapper" item-right>
+          <ion-icon class="prep-input-icon" item-right name="mail"></ion-icon>
+        </span>
+        <input
+          class="prep-input email-input"
+          type="text"
+          formControlName="email"
+        />
+      </ion-item>
+    </ion-list>
+    <button type="submit" class="ab-btn">ذخیره</button>
+  </form>
+</ion-content>
