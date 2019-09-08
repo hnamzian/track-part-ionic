@@ -142,6 +142,17 @@
     }
   }
 
+  // fab sttyles
+  .floating-action {
+    right: 25px;
+    bottom: 75px;
+    z-index: 9;
+  }
+  .fab {
+    background-color: rgb(82, 136, 209);
+    color: white;
+  }
+
   // loading styles
   ion-loading.loadingClass {
     .loading-wrapper {
