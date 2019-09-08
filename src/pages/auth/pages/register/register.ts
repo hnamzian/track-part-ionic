@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
 
@@ -13,7 +13,13 @@ export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder) {}
+  toast: Toast;
+
+  constructor(
+    public navCtrl: NavController,
+    public formBuilder: FormBuilder,
+    public toastCtrl: ToastController
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -41,5 +47,19 @@ export class RegisterPage implements OnInit {
 
   navToLoginPage() {
     this.navCtrl.push(LoginPage);
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: 1000,
+      cssClass: 'toast'
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
