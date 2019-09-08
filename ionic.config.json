@@ -1,0 +1,7 @@
+{
+  "name": "trackpart-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
