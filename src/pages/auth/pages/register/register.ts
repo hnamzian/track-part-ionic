@@ -28,6 +28,17 @@ export class RegisterPage implements OnInit {
     });
   }
 
+  formErrorCheck() {
+    const message = this.registerForm.get('mobileNumber').hasError('required')
+      ? 'شماره همراه الزامی است'
+      : this.registerForm.get('mobileNumber').hasError('minlength')
+      ? 'شماره همراه نامعتبر است'
+      : this.registerForm.get('mobileNumber').hasError('maxlength')
+      ? 'شماره همراه نامعتبر است'
+      : 'خطا';
+    return message;
+  }
+
   navToLoginPage() {
     this.navCtrl.push(LoginPage);
   }
