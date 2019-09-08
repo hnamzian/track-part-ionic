@@ -21,4 +21,99 @@
 
 * {
   font-family: 'iransans';
+
+  // input cmponent styles
+  ion-list.prep-input-list {
+    margin: 0px;
+  }
+
+  ion-item.prep-input-item {
+    height: 45px;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none !important;
+    box-shadow: 0 0 6px 2px #ddd;
+    border-radius: 5px;
+
+    .input-wrapper {
+      border-right: 1px solid #ddd;
+    }
+  }
+
+  span.prep-input-span {
+    width: 90px;
+    text-align: right;
+    margin-right: 0px !important;
+    padding-left: 10px;
+    font-size: 14px;
+    color: rgb(112, 112, 112);
+  }
+
+  input.prep-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    direction: rtl;
+    font-size: 16px;
+  }
+  input[disabled] {
+    cursor: default;
+    background-color: white;
+  }
+
+  .password-input {
+    text-align: left !important;
+    direction: ltr !important;
+  }
+
+  .email-icon-wrapper {
+    width: fit-content;
+  }
+
+  ion-item.phone-prefix-wrapper {
+    .input-wrapper {
+      border-right: none !important;
+    }
+  }
+
+  .phone-prefix-label {
+    width: fit-content !important;
+    direction: ltr !important;
+    text-align: left !important;
+    font-size: 16px !important;
+  }
+
+  .phone-input {
+    direction: ltr !important;
+    text-align: left !important;
+  }
+
+  ion-item.password-input-item {
+    .input-wrapper {
+      border-right: none !important;
+    }
+  }
+
+  ion-item.email-input-item {
+    .input-wrapper {
+      border-right: none !important;
+    }
+    .email-icon-wrapper {
+      width: fit-content !important;
+    }
+    .email-input {
+      direction: ltr;
+      text-align: left;
+    }
+  }
+
+  ion-icon.prep-input-icon {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    font-size: 22px;
+  }
 }
