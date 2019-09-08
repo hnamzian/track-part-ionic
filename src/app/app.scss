@@ -137,6 +137,21 @@
     }
   }
 
+  // loading styles
+  ion-loading.loadingClass {
+    .loading-wrapper {
+      width: 36px;
+      height: 36px;
+      padding: 0 !important;
+      justify-content: center;
+      border-radius: 50% !important;
+    }
+    .loading-spinner {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
   // custom styles
   .navbar-container {
     padding: 20px;
