@@ -1,0 +1,39 @@
+<ion-content>
+  <auth-header
+    [headerTitle]="headerTitle"
+    [headerImage]="headerImageUrl"
+  ></auth-header>
+
+  <form class="form-container" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <ion-list class="prep-input-list">
+      <ion-item class="prep-input-item phone-prefix-wrapper">
+        <span class="prep-input-span phone-prefix-label" item-left>+98</span>
+        <input
+          class="prep-input phone-input"
+          type="tel"
+          formControlName="mobileNumber"
+        />
+        <ion-icon
+          class="prep-input-icon"
+          item-right
+          name="phone-portrait"
+        ></ion-icon>
+      </ion-item>
+      <ion-item class="prep-input-item password-input-item" no-lines>
+        <input
+          class="prep-input password-input"
+          type="password"
+          formControlName="password"
+        />
+        <ion-icon class="prep-input-icon" item-right name="key"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <button type="submit" class="ab-btn">وارد شوید</button>
+    <div class="text-container">
+      حساب کاربری ندارید؟
+      <span class="span-left" (click)="navToRegisterPage()">
+        ثبت نام نمایید
+      </span>
+    </div>
+  </form>
+</ion-content>
