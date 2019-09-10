@@ -53,3 +53,11 @@ user-profile {
     }
   }
 }
+
+.listPopover .popover-content {
+  width: 80%;
+  // height: 50%;
+  bottom: 10% !important;
+  left: 10% !important;
+  top: auto !important;
+}

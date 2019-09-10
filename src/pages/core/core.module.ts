@@ -7,7 +7,7 @@ import { SelectListComponent } from './components/select-list/select-list';
 @NgModule({
   imports: [CommonModule, IonicModule],
   declarations: [AuthHeaderComponent, SelectListComponent],
-  entryComponents: [],
+  entryComponents: [SelectListComponent],
   exports: [AuthHeaderComponent, SelectListComponent]
 })
 export class CoreModule {}
