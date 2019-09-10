@@ -54,6 +54,7 @@ export class RegisterProfilePage implements OnInit {
       persianName: 'نصب کننده آنتن'
     }
   ];
+  userPosition;
 
   toast: Toast;
 
@@ -104,6 +105,14 @@ export class RegisterProfilePage implements OnInit {
       { cssClass: 'listPopover' }
     );
     popover.present();
+    popover.onDidDismiss(async position => {
+      if (position && position.persianName) {
+        this.userPosition = position;
+        this.userProfileForm
+          .get('position')
+          .setValue(this.userPosition.persianName);
+      }
+    });
   }
 
   showToast(message) {
