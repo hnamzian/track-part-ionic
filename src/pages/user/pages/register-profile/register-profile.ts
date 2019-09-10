@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController, Toast } from 'ionic-angular';
+import {
+  NavController,
+  ToastController,
+  Toast,
+  PopoverController
+} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SelectListComponent } from '../../../core/components/select-list/select-list';
 
 @Component({
   selector: 'register-profile',
@@ -53,6 +59,7 @@ export class RegisterProfilePage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
+    public popoverCtrl: PopoverController,
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder
   ) {}
@@ -85,6 +92,15 @@ export class RegisterProfilePage implements OnInit {
         } حرف باشد`
       : 'خطا';
     return message;
+  }
+
+  openPositionsList() {
+    let popover = this.popoverCtrl.create(
+      SelectListComponent,
+      { itemsList: this.positionsList },
+      { cssClass: 'listPopover' }
+    );
+    popover.present();
   }
 
   showToast(message) {
