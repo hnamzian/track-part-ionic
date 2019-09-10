@@ -14,6 +14,41 @@ export class RegisterProfilePage implements OnInit {
 
   userProfileForm: FormGroup;
 
+  positionsList = [
+    {
+      englishName: 'BOARD_CREATOR',
+      persionName: 'تولید کننده بورد'
+    },
+    {
+      englishName: 'BOARD_TESTER',
+      persionName: 'آزمایش کننده بورد'
+    },
+    {
+      englishName: 'RAK_CREATOR',
+      persionName: 'تولید کننده رک'
+    },
+    {
+      englishName: 'BRAK_TESTER',
+      persionName: 'آزمایش کننده رک'
+    },
+    {
+      englishName: 'SYSTEM_CREATOR',
+      persionName: 'تولید کننده سیستم'
+    },
+    {
+      englishName: 'SYSTEM_TESTER',
+      persionName: 'آزمایش کننده سیستم'
+    },
+    {
+      englishName: 'PC_CONNECTOR',
+      persionName: 'نصب کننده رایانه'
+    },
+    {
+      englishName: 'ANTENNA_CONNECTOR',
+      persionName: 'نصب کننده آنتن'
+    }
+  ];
+
   toast: Toast;
 
   constructor(
