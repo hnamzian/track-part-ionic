@@ -23,35 +23,35 @@ export class RegisterProfilePage implements OnInit {
   positionsList = [
     {
       englishName: 'BOARD_CREATOR',
-      persionName: 'تولید کننده بورد'
+      persianName: 'تولید کننده بورد'
     },
     {
       englishName: 'BOARD_TESTER',
-      persionName: 'آزمایش کننده بورد'
+      persianName: 'آزمایش کننده بورد'
     },
     {
       englishName: 'RAK_CREATOR',
-      persionName: 'تولید کننده رک'
+      persianName: 'تولید کننده رک'
     },
     {
       englishName: 'BRAK_TESTER',
-      persionName: 'آزمایش کننده رک'
+      persianName: 'آزمایش کننده رک'
     },
     {
       englishName: 'SYSTEM_CREATOR',
-      persionName: 'تولید کننده سیستم'
+      persianName: 'تولید کننده سیستم'
     },
     {
       englishName: 'SYSTEM_TESTER',
-      persionName: 'آزمایش کننده سیستم'
+      persianName: 'آزمایش کننده سیستم'
     },
     {
       englishName: 'PC_CONNECTOR',
-      persionName: 'نصب کننده رایانه'
+      persianName: 'نصب کننده رایانه'
     },
     {
       englishName: 'ANTENNA_CONNECTOR',
-      persionName: 'نصب کننده آنتن'
+      persianName: 'نصب کننده آنتن'
     }
   ];
 
@@ -80,7 +80,9 @@ export class RegisterProfilePage implements OnInit {
     const message = this.userProfileForm.get('firstName').hasError('required')
       ? ' نام الزامی است'
       : this.userProfileForm.get('lastName').hasError('required')
-      ? 'نام خانوادگی  نامعتبر است'
+      ? 'نام خانوادگی  الزامی است'
+      : this.userProfileForm.get('position').hasError('required')
+      ? 'سمت  الزامی است'
       : this.userProfileForm.get('email').hasError('required')
       ? 'پست الکترونیک  نامعتبر است'
       : this.userProfileForm.get('email').hasError('email')
