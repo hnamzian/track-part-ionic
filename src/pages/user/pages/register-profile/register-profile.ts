@@ -68,6 +68,7 @@ export class RegisterProfilePage implements OnInit {
     this.userProfileForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
+      position: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]]
     });
