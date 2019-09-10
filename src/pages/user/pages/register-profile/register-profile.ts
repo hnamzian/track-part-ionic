@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, Toast } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterPage } from '../../../auth/pages/register/register';
-import { LoginPage } from '../../../auth/pages/login/login';
 
 @Component({
   selector: 'register-profile',
