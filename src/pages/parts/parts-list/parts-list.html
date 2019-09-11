@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content padding>
   <ion-segment mode="ios" (ionChange)="changePartType($event)" value="partType">
     <ion-segment-button value="systems">
       <ion-label>سیستم ها</ion-label>
@@ -16,4 +16,44 @@
       <ion-label>بورد ها</ion-label>
     </ion-segment-button>
   </ion-segment>
+
+  <div class="item-container">
+    <ion-grid style="direction: rtl" (press)="editOrRemoveItem(fuel)">
+      <ion-row>
+        <ion-col col-6 class="part-id-wrapper">
+          <p class="item-title">
+            شماره شناسایی
+            <span class="text-left item-value"> ۱۲۳۴۵۶۷ </span>
+          </p>
+        </ion-col>
+        <ion-col col-1></ion-col>
+        <ion-col col-5 class="date-wrapper">
+          <p class="text-right item-title">
+            تاریخ تولید
+            <span class="text-left item-value"> ۲۱/۱۰/۱۳۹۸ </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 class="part-name-wrapper">
+          <p class="item-title">
+            نام قطعه <span class="text-left item-value"> بورد ردیاب </span>
+          </p>
+        </ion-col>
+        <ion-col col-1></ion-col>
+        <ion-col col-5 class="creator-wrapper">
+          <p class="text-right item-title">
+            تولید کننده <span class="text-left item-value"> بابک بورد </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 class="part-state-wrapper">
+          <p class="item-title">
+            وضعیت <span class="text-left item-value"> تست شده </span>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
