@@ -1,0 +1,14 @@
+<ion-content>
+  <ion-tabs>
+    <ion-tab
+      tabTitle="لیست قطعات"
+      [root]="profilePage"
+      (ionSelect)="activatePartListTab()"
+    ></ion-tab>
+    <ion-tab
+      tabTitle="پروفایل"
+      [root]="profilePage"
+      (ionSelect)="activateProfileTab()"
+    ></ion-tab>
+  </ion-tabs>
+</ion-content>

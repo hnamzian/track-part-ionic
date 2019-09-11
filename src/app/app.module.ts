@@ -9,9 +9,10 @@ import { CoreModule } from '../pages/core/core.module';
 import { AuthModule } from '../pages/auth/auth.module';
 import { UserModule } from '../pages/user/user.module';
 import { PartsModule } from '../pages/parts/parts.module';
+import { HomePage } from '../pages/home/home';
 
 @NgModule({
-  declarations: [MyApp],
+  declarations: [MyApp, HomePage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -21,7 +22,7 @@ import { PartsModule } from '../pages/parts/parts.module';
     PartsModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp],
+  entryComponents: [MyApp, HomePage],
   providers: [
     StatusBar,
     SplashScreen,
