@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { CoreModule } from '../pages/core/core.module';
 import { AuthModule } from '../pages/auth/auth.module';
 import { UserModule } from '../pages/user/user.module';
+import { PartsModule } from '../pages/parts/parts.module';
 
 @NgModule({
   declarations: [MyApp],
@@ -16,7 +17,8 @@ import { UserModule } from '../pages/user/user.module';
     IonicModule.forRoot(MyApp),
     CoreModule,
     AuthModule,
-    UserModule
+    UserModule,
+    PartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
