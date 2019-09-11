@@ -53,4 +53,6 @@ export class PartsListPage implements OnInit {
       });
     }
   }
+
+  openScanner() {}
 }
