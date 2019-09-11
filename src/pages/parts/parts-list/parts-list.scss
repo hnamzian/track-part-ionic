@@ -1,0 +1,18 @@
+parts-list {
+  ion-header {
+    position: unset !important;
+  }
+  ion-segment {
+    padding: 15px 10px 10px 10px;
+  }
+  .segment-button {
+    border-color: #f8b093 !important;
+  }
+  .segment-button.segment-activated {
+    background-color: #fce1d7 !important;
+  }
+  ion-segment-button ion-label {
+    margin: 0px 0px 0px 0px !important;
+    color: #f15719 !important;
+  }
+}
