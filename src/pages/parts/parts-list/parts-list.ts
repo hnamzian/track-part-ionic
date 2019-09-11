@@ -5,8 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'parts-list.html'
 })
 export class PartsListPage implements OnInit {
-
   constructor() {}
 
   ngOnInit() {}
+
+  changePartType(ev) {
+    console.log(ev.value);
+  }
 }
