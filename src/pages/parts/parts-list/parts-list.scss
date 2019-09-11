@@ -1,7 +1,4 @@
 parts-list {
-  ion-segment {
-    padding: 15px 10px 10px 10px;
-  }
   .segment-button {
     border-color: #f8b093 !important;
   }
@@ -11,5 +8,55 @@ parts-list {
   ion-segment-button ion-label {
     margin: 0px 0px 0px 0px !important;
     color: #f15719 !important;
+  }
+
+  .right-end {
+    float: right;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-left {
+    float: left;
+    text-align: left;
+  }
+
+  .item-container {
+    margin-top: 10px;
+    display: flex;
+    flex: rtl;
+    background-color: rgb(239, 239, 239);
+    color: rgb(112, 112, 112);
+    font-size: 12px;
+    border-radius: 5px;
+
+    p {
+      margin: 0px;
+    }
+
+    .item-title {
+    }
+
+    .item-value {
+      color: rgb(87, 180, 239);
+    }
+
+    .cost-text {
+      padding-left: 5px;
+      color: rgb(87, 180, 239);
+      span {
+        color: rgb(112, 112, 112);
+      }
+    }
+
+    .liter-text {
+      padding-left: 5px;
+      color: rgb(87, 180, 239);
+      span {
+        color: rgb(112, 112, 112);
+      }
+    }
   }
 }
