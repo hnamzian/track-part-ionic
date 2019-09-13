@@ -55,7 +55,7 @@ export class PartsListPage implements OnInit {
     }
   }
 
-  openScanner() {
+  scanQRCode() {
     this.qrScanner
       .prepare()
       .then((status: QRScannerStatus) => {
