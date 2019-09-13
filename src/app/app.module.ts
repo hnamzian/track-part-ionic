@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { QRScanner } from '@ionic-native/qr-scanner';
 import { CoreModule } from '../pages/core/core.module';
 import { AuthModule } from '../pages/auth/auth.module';
 import { UserModule } from '../pages/user/user.module';
@@ -26,7 +27,8 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    QRScanner
   ]
 })
 export class AppModule {}
