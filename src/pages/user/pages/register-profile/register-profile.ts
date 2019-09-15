@@ -7,6 +7,8 @@ import {
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
+import { AuthProvider } from '../../../../providers/auth/auth';
+import { User } from '../../../../models/User';
 
 @Component({
   selector: 'register-profile',
@@ -62,13 +64,15 @@ export class RegisterProfilePage implements OnInit {
     public navCtrl: NavController,
     public popoverCtrl: PopoverController,
     public toastCtrl: ToastController,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public authProvider: AuthProvider
   ) {}
 
   async ngOnInit() {
     this.userProfileForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
+      companyName: ['', [Validators.required]],
       position: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]]
@@ -76,8 +80,6 @@ export class RegisterProfilePage implements OnInit {
   }
 
   formErrorCheck() {
-    console.log(this.userProfileForm.get('password'));
-
     const message = this.userProfileForm.get('firstName').hasError('required')
       ? ' نام الزامی است'
       : this.userProfileForm.get('lastName').hasError('required')
@@ -94,8 +96,39 @@ export class RegisterProfilePage implements OnInit {
       ? `رمز عبور باید حداقل شامل ${
           this.userProfileForm.get('password').errors.minlength.requiredLength
         } حرف باشد`
-      : 'خطا';
+      : null;
+
     return message;
+  }
+
+  async registerUser() {
+    const errorMessage = this.formErrorCheck();
+    if (errorMessage) {
+    }
+
+    const rolePersianName = this.userProfileForm.get('position').value;
+    let roleEnglishName;
+    for (let position of this.positionsList) {
+      if (position.persianName == rolePersianName)
+        roleEnglishName = position.englishName;
+    }
+
+    const user = {
+      firstName: this.userProfileForm.get('firstName').value,
+      lastName: this.userProfileForm.get('lastName').value,
+      companyName: this.userProfileForm.get('companyName').value,
+      role: roleEnglishName,
+      password: this.userProfileForm.get('password').value,
+      email: this.userProfileForm.get('email').value
+    } as User;
+
+    let user$ = await this.authProvider.registerUser(user);
+    user$.subscribe(
+      user => {
+        console.log(user);
+      },
+      error => console.log(error)
+    );
   }
 
   openPositionsList() {
