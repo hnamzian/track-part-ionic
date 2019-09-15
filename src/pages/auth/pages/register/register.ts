@@ -23,24 +23,17 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      mobileNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
-        ]
-      ]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
   formErrorCheck() {
-    const message = this.registerForm.get('mobileNumber').hasError('required')
-      ? 'شماره همراه الزامی است'
-      : this.registerForm.get('mobileNumber').hasError('minlength')
-      ? 'شماره همراه نامعتبر است'
-      : this.registerForm.get('mobileNumber').hasError('maxlength')
-      ? 'شماره همراه نامعتبر است'
+    const message = this.registerForm.get('email').hasError('required')
+      ? 'پست الکترونیک  نامعتبر است'
+      : this.registerForm.get('email').hasError('email')
+      ? 'پست الکترونیک نامعتبر است'
+      : this.registerForm.get('password').hasError('required')
+      ? 'رمز عبور الزامی است'
       : 'خطا';
     return message;
   }
