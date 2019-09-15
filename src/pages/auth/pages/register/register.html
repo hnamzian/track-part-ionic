@@ -10,20 +10,17 @@
     [formGroup]="registerForm"
     (ngSubmit)="getSMSToken()"
   >
-    <div class="text-container">شماره تلفن همراه خود را وارد نمایید</div>
+    <div class="text-container">پست الکترونیک خود را وارد نمایید</div>
     <ion-list class="prep-input-list">
-      <ion-item class="prep-input-item phone-prefix-wrapper">
-        <span class="prep-input-span phone-prefix-label" item-left>+98</span>
+      <ion-item class="prep-input-item email-input-item" no-lines>
+        <span class="prep-input-span email-icon-wrapper" item-right>
+          <ion-icon class="prep-input-icon" item-right name="mail"></ion-icon>
+        </span>
         <input
-          class="prep-input phone-input"
-          type="tel"
-          formControlName="mobileNumber"
+          class="prep-input email-input"
+          type="text"
+          formControlName="email"
         />
-        <ion-icon
-          class="prep-input-icon"
-          item-right
-          name="phone-portrait"
-        ></ion-icon>
       </ion-item>
     </ion-list>
     <button type="submit" class="ab-btn">ثبت نام</button>
