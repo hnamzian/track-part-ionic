@@ -160,4 +160,35 @@ export class PartsProvider {
         })
       );
   }
+
+  async addSubPart(partId, subPartId) {
+    const url = `this.baseUrl/${partId}/subParts`;
+
+    const authToken = await this.tokenStorage.getAuthToken();
+
+    if (!authToken) return Observable.of({} as Part);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: authToken
+      })
+    };
+
+    const data = {
+      subPartId
+    };
+
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(
+        map((result: Part) => {
+          return result;
+        })
+      );
+  }
 }
