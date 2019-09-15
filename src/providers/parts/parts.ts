@@ -218,4 +218,31 @@ export class PartsProvider {
         })
       );
   }
+
+  async getSubParts(partId) {
+    const url = `this.baseUrl/${partId}/subParts`;
+
+    const authToken = await this.tokenStorage.getAuthToken();
+
+    if (!authToken) return Observable.of({} as Part);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: authToken
+      })
+    };
+
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(
+        map((result: Part) => {
+          return result;
+        })
+      );
+  }
 }
