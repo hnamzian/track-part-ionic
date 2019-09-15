@@ -27,4 +27,21 @@ export class AuthProvider {
         })
       );
   }
+
+  async loginUser(email, password) {
+    const url = this.baseUrl;
+
+    return this.http
+      .post(url, { email, password })
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(
+        map(result => {
+          return result;
+        })
+      );
+  }
 }
