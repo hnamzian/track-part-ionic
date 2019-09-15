@@ -4,12 +4,11 @@ import { IonicModule } from 'ionic-angular';
 import { CoreModule } from "../core/core.module"
 
 import { LoginPage } from './pages/login/login';
-import { RegisterPage } from './pages/register/register';
 
 @NgModule({
   imports: [CommonModule, IonicModule, CoreModule],
-  declarations: [LoginPage, RegisterPage],
-  entryComponents: [LoginPage, RegisterPage],
+  declarations: [LoginPage],
+  entryComponents: [LoginPage],
   exports: []
 })
 export class AuthModule {}
