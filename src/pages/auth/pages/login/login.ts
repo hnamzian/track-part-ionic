@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterPage } from '../register/register';
+import { RegisterProfilePage } from '../../../user/pages/register-profile/register-profile';
 
 @Component({
   selector: 'login-page',
@@ -23,25 +23,16 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      mobileNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
-        ]
-      ],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   formErrorCheck() {
-    const message = this.loginForm.get('mobileNumber').hasError('required')
-      ? 'شماره همراه الزامی است'
-      : this.loginForm.get('mobileNumber').hasError('minlength')
-      ? 'شماره همراه نامعتبر است'
-      : this.loginForm.get('mobileNumber').hasError('maxlength')
-      ? 'شماره همراه نامعتبر است'
+    const message = this.loginForm.get('email').hasError('required')
+      ? 'پست الکترونیک  نامعتبر است'
+      : this.loginForm.get('email').hasError('email')
+      ? 'پست الکترونیک نامعتبر است'
       : this.loginForm.get('password').hasError('required')
       ? 'رمز عبور الزامی است'
       : 'خطا';
@@ -49,7 +40,7 @@ export class LoginPage implements OnInit {
   }
 
   navToRegisterPage() {
-    this.navCtrl.push(RegisterPage);
+    this.navCtrl.push(RegisterProfilePage);
   }
 
   showToast(message) {
