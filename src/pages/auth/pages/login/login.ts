@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
       ? 'پست الکترونیک نامعتبر است'
       : this.loginForm.get('password').hasError('required')
       ? 'رمز عبور الزامی است'
-      : 'خطا';
+      : null;
     return message;
   }
 
