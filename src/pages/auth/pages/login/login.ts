@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterProfilePage } from '../../../user/pages/register-profile/register-profile';
+import { AuthProvider } from '../../../../providers/auth/auth';
 
 @Component({
   selector: 'login-page',
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public authProvider: AuthProvider
   ) {}
 
   ngOnInit() {
