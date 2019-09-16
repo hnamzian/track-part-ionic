@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
 
   formErrorCheck() {
     const message = this.loginForm.get('email').hasError('required')
-      ? 'پست الکترونیک  نامعتبر است'
+      ? 'پست الکترونیک الزامی است'
       : this.loginForm.get('email').hasError('email')
       ? 'پست الکترونیک نامعتبر است'
       : this.loginForm.get('password').hasError('required')
@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
 
   loginUser() {
     const errorMessage = this.formErrorCheck();
-    if (errorMessage) return this.showToast(errorMessage)
+    if (errorMessage) return this.showToast(errorMessage);
   }
 
   navToRegisterPage() {
