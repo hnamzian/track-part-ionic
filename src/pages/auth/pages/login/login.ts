@@ -39,6 +39,11 @@ export class LoginPage implements OnInit {
     return message;
   }
 
+  loginUser() {
+    const errorMessage = this.formErrorCheck();
+    if (errorMessage) return this.showToast(errorMessage)
+  }
+
   navToRegisterPage() {
     this.navCtrl.push(RegisterProfilePage);
   }
