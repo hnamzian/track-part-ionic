@@ -41,9 +41,25 @@ export class LoginPage implements OnInit {
     return message;
   }
 
-  loginUser() {
+  async loginUser() {
     const errorMessage = this.formErrorCheck();
     if (errorMessage) return this.showToast(errorMessage);
+
+    const email = this.loginForm.get('email').value;
+    const password = this.loginForm.get('password').value;
+
+    const login$ = await this.authProvider.loginUser(email, password);
+    login$.subscribe(
+      user => {
+        // get token
+      },
+      error => {
+        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+        else {
+          this.showToast(error.error.error.message);
+        }
+      }
+    );
   }
 
   navToRegisterPage() {
