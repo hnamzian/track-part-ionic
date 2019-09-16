@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
+import { QRScanner } from '@ionic-native/qr-scanner';
 import { CoreModule } from '../pages/core/core.module';
 import { AuthModule } from '../pages/auth/auth.module';
 import { UserModule } from '../pages/user/user.module';
@@ -31,8 +32,7 @@ import { TokenStorage } from '../storage/token';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider,
-    TokenStorage
+    QRScanner
   ]
 })
 export class AppModule {}
