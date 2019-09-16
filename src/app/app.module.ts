@@ -12,6 +12,7 @@ import { UserModule } from '../pages/user/user.module';
 import { PartsModule } from '../pages/parts/parts.module';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
+import { TokenStorage } from '../storage/token';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -30,7 +31,8 @@ import { AuthProvider } from '../providers/auth/auth';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider
+    AuthProvider,
+    TokenStorage
   ]
 })
 export class AppModule {}
