@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterProfilePage } from '../../../user/pages/register-profile/register-profile';
+import { HomePage } from '../../../home/home';
 import { AuthProvider } from '../../../../providers/auth/auth';
+import { TokenStorage } from '../../../../storage/token';
 
 @Component({
   selector: 'login-page',
@@ -20,7 +22,8 @@ export class LoginPage implements OnInit {
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
     public toastCtrl: ToastController,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public tokenStorage: TokenStorage
   ) {}
 
   ngOnInit() {
@@ -50,8 +53,9 @@ export class LoginPage implements OnInit {
 
     const login$ = await this.authProvider.loginUser(email, password);
     login$.subscribe(
-      user => {
-        // get token
+      result => {
+        this.tokenStorage.setAuthToken(result['token']);
+        this.navCtrl.push(HomePage);
       },
       error => {
         if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
