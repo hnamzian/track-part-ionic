@@ -3,6 +3,10 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { TokenStorage } from '../storage/token';
+import { UserStorage } from '../storage/user';
+import { AuthProvider } from '../providers/auth/auth';
+
 import { LoginPage } from '../pages/auth/pages/login/login';
 
 @Component({
