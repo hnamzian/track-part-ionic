@@ -18,13 +18,22 @@ export class MyApp {
   constructor(
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen
+    splashScreen: SplashScreen,
+    authProvider: AuthProvider,
+    tokenStorage: TokenStorage,
+    userStorage: UserStorage
   ) {
-    platform.ready().then(() => {
+    platform.ready().then(async () => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      const authToken = await tokenStorage.getAuthToken();
+      if (!authToken) {
+        this.rootPage = LoginPage;
+        return;
+      }
     });
   }
 }
