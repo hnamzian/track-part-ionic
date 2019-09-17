@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { PartsProvider } from '../../../providers/parts/parts';
 
 @Component({
   selector: 'parts-list',
@@ -26,7 +27,10 @@ export class PartsListPage implements OnInit {
   ];
   parts;
 
-  constructor(private qrScanner: QRScanner) {}
+  constructor(
+    private qrScanner: QRScanner,
+    public partsProvider: PartsProvider
+  ) {}
 
   ngOnInit() {}
 
