@@ -89,19 +89,7 @@ export class UserProfilePage {
   }
 
   async getUser() {
-    const user$ = await this.authProvider.getUserProfile();
-    user$.subscribe(
-      async result => {
-        this.user = result;
-        await this.userStorage.setUser(this.user);
-      },
-      error => {
-        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
-        else {
-          this.showToast(error.error.error.message);
-        }
-      }
-    );
+    this.user = await this.userStorage.getUser();
   }
 
   formErrorCheck() {
