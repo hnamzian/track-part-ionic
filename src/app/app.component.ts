@@ -15,7 +15,7 @@ import { User } from '../models/User';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   user: User;
 
