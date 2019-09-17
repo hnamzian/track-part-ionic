@@ -1,0 +1,34 @@
+<ion-content>
+  <form
+    class="form-container"
+    [formGroup]="userProfileForm"
+    (ngSubmit)="updateProfile()"
+  >
+    <ion-list class="prep-input-list">
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>نام قطعه</span>
+        <input class="prep-input" type="text" formControlName="partName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>شماره سریال</span>
+        <input class="prep-input" type="text" formControlName="serialNumber" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>نوع قطعه</span>
+        <input class="prep-input" type="text" formControlName="partType" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>تولید کننده</span>
+        <input class="prep-input" type="text" formControlName="creator" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>تاریخ تولید</span>
+        <input class="prep-input" type="text" formControlName="createdAt" />
+      </ion-item>
+    </ion-list>
+    <button type="submit" class="ab-btn">تولید</button>
+    <button type="submit" class="ab-btn">انتقال</button>
+    <button type="submit" class="ab-btn">ثبت نتیجه آزمایش</button>
+    <button type="submit" class="ab-btn">افزودن به قطعه</button>
+  </form>
+</ion-content>
