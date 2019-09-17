@@ -9,6 +9,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
 import { AuthProvider } from '../../../../providers/auth/auth';
+import { UserStorage } from '../../../../storage/user';
 import { User } from '../../../../models/User';
 
 @Component({
@@ -66,7 +67,8 @@ export class UserProfilePage {
     public formBuilder: FormBuilder,
     public navParams: NavParams,
     public popoverCtrl: PopoverController,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public userStorage: UserStorage
   ) {}
 
   async ngOnInit() {
@@ -89,8 +91,9 @@ export class UserProfilePage {
   async getUser() {
     const user$ = await this.authProvider.getUserProfile();
     user$.subscribe(
-      result => {
+      async result => {
         this.user = result;
+        await this.userStorage.setUser(this.user);
       },
       error => {
         if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
