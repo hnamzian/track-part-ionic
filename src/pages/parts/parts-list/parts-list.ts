@@ -47,6 +47,21 @@ export class PartsListPage implements OnInit {
     }
   }
 
+  async getAllParts() {
+    const allParts$ = await this.partsProvider.getParts();
+    allParts$.subscribe(
+      parts => {
+        this.allParts = parts;
+      },
+      error => {
+        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+        else {
+          this.showToast(error.error.error.message);
+        }
+      }
+    );
+  }
+
   scanQRCode() {
     this.qrScanner
       .prepare()
