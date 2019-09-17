@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { PartsProvider } from '../../../providers/parts/parts';
+import { Toast, ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'parts-list',
@@ -27,8 +28,11 @@ export class PartsListPage implements OnInit {
   ];
   parts;
 
+  toast: Toast;
+
   constructor(
     private qrScanner: QRScanner,
+    public toastCtrl: ToastController,
     public partsProvider: PartsProvider
   ) {}
 
@@ -78,5 +82,19 @@ export class PartsListPage implements OnInit {
         }
       })
       .catch((e: any) => console.log('Error is', e));
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: 2000,
+      cssClass: 'toast'
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
