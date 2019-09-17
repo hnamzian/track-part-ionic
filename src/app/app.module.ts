@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicStorageModule } from "@ionic/storage";
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { QRScanner } from '@ionic-native/qr-scanner';
@@ -15,6 +15,7 @@ import { PartsModule } from '../pages/parts/parts.module';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { TokenStorage } from '../storage/token';
+import { UserStorage } from '../storage/user';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -36,7 +37,8 @@ import { TokenStorage } from '../storage/token';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     QRScanner,
     AuthProvider,
-    TokenStorage
+    TokenStorage,
+    UserStorage
   ]
 })
 export class AppModule {}
