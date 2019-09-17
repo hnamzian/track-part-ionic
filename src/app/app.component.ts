@@ -8,12 +8,16 @@ import { UserStorage } from '../storage/user';
 import { AuthProvider } from '../providers/auth/auth';
 
 import { LoginPage } from '../pages/auth/pages/login/login';
+import { HomePage } from '../pages/home/home';
+import { User } from '../models/User';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage: any = LoginPage;
+
+  user: User;
 
   toast: Toast;
 
@@ -37,6 +41,22 @@ export class MyApp {
         this.rootPage = LoginPage;
         return;
       }
+
+      const user$ = await authProvider.getUserProfile();
+      user$.subscribe(
+        async result => {
+          this.user = result;
+          await userStorage.setUser(this.user);
+          this.rootPage = HomePage;
+        },
+        error => {
+          if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+          else {
+            this.showToast(error.error.error.message);
+          }
+          this.rootPage = LoginPage;
+        }
+      );
     });
   }
 
