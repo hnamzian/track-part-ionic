@@ -20,7 +20,9 @@ export class PartsListPage implements OnInit {
     public partsProvider: PartsProvider
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.getAllParts();
+  }
 
   changePartType(ev) {
     this.parts = [];
