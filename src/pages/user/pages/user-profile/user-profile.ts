@@ -8,6 +8,9 @@ import {
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
+import { AuthProvider } from '../../../../providers/auth/auth';
+import { UserStorage } from '../../../../storage/user';
+import { User } from '../../../../models/User';
 
 @Component({
   selector: 'user-profile',
@@ -17,6 +20,8 @@ export class UserProfilePage {
   userProfileForm: FormGroup;
 
   userIconImage = '../../../../assets/imgs/user.png';
+
+  user: User;
 
   positionsList = [
     {
@@ -61,7 +66,9 @@ export class UserProfilePage {
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public authProvider: AuthProvider,
+    public userStorage: UserStorage
   ) {}
 
   async ngOnInit() {
@@ -71,6 +78,18 @@ export class UserProfilePage {
       position: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     });
+
+    await this.getUser();
+    this.userProfileForm.setValue({
+      firstName: [this.user.firstName],
+      lastName: [this.user.lastName],
+      position: [this.user.role],
+      email: [this.user.email]
+    });
+  }
+
+  async getUser() {
+    this.user = await this.userStorage.getUser();
   }
 
   formErrorCheck() {

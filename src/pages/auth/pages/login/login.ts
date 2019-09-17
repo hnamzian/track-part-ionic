@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterProfilePage } from '../../../user/pages/register-profile/register-profile';
+import { HomePage } from '../../../home/home';
+import { AuthProvider } from '../../../../providers/auth/auth';
+import { TokenStorage } from '../../../../storage/token';
 
 @Component({
   selector: 'login-page',
@@ -18,7 +21,9 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public authProvider: AuthProvider,
+    public tokenStorage: TokenStorage
   ) {}
 
   ngOnInit() {
@@ -30,13 +35,35 @@ export class LoginPage implements OnInit {
 
   formErrorCheck() {
     const message = this.loginForm.get('email').hasError('required')
-      ? 'پست الکترونیک  نامعتبر است'
+      ? 'پست الکترونیک الزامی است'
       : this.loginForm.get('email').hasError('email')
       ? 'پست الکترونیک نامعتبر است'
       : this.loginForm.get('password').hasError('required')
       ? 'رمز عبور الزامی است'
-      : 'خطا';
+      : null;
     return message;
+  }
+
+  async loginUser() {
+    const errorMessage = this.formErrorCheck();
+    if (errorMessage) return this.showToast(errorMessage);
+
+    const email = this.loginForm.get('email').value;
+    const password = this.loginForm.get('password').value;
+
+    const login$ = await this.authProvider.loginUser(email, password);
+    login$.subscribe(
+      result => {
+        this.tokenStorage.setAuthToken(result['token']);
+        this.navCtrl.push(HomePage);
+      },
+      error => {
+        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+        else {
+          this.showToast(error.error.error.message);
+        }
+      }
+    );
   }
 
   navToRegisterPage() {
