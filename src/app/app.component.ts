@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, Toast, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,10 +15,13 @@ import { LoginPage } from '../pages/auth/pages/login/login';
 export class MyApp {
   rootPage: any = LoginPage;
 
+  toast: Toast;
+
   constructor(
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
+    public toastCtrl: ToastController,
     authProvider: AuthProvider,
     tokenStorage: TokenStorage,
     userStorage: UserStorage
@@ -35,5 +38,19 @@ export class MyApp {
         return;
       }
     });
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: 2000,
+      cssClass: 'toast'
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
