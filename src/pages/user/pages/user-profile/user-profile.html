@@ -12,6 +12,15 @@
   >
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>شماره شناسایی</span>
+        <input
+          class="prep-input"
+          type="text"
+          formControlName="userId"
+          disabled
+        />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>نام</span>
         <input class="prep-input" type="text" formControlName="firstName" />
       </ion-item>
@@ -21,7 +30,12 @@
       </ion-item>
       <ion-item class="prep-input-item" no-lines (click)="openPositionsList()">
         <span class="prep-input-span" item-right>سمت</span>
-        <input class="prep-input" disabled type="text" formControlName="position" />
+        <input
+          class="prep-input"
+          disabled
+          type="text"
+          formControlName="position"
+        />
       </ion-item>
       <ion-item class="prep-input-item email-input-item" no-lines>
         <span class="prep-input-span email-icon-wrapper" item-right>
