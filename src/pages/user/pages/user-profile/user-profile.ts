@@ -73,8 +73,19 @@ export class UserProfilePage {
   ) {}
 
   async ngOnInit() {
-    this.setUserProfileFormValues(this.user);
+    this.intiateUserProfileForm();
     await this.getUser();
+  }
+
+  intiateUserProfileForm() {
+    this.userProfileForm = this.formBuilder.group({
+      userId: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      companyName: ['', [Validators.required]],
+      position: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   setUserProfileFormValues(user: User) {
@@ -82,6 +93,7 @@ export class UserProfilePage {
       userId: [user ? user.id : ''],
       firstName: [user ? user.firstName : ''],
       lastName: [user ? user.lastName : ''],
+      companyName: [user ? user.companyName : ''],
       position: [user ? roleEnToFa[user.role] : ''],
       email: [user ? user.email : '']
     });
