@@ -11,6 +11,7 @@ import { SelectListComponent } from '../../../core/components/select-list/select
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { UserStorage } from '../../../../storage/user';
 import { User } from '../../../../models/User';
+import { roleEnToFa } from '../../../../config/roles';
 
 @Component({
   selector: 'user-profile',
@@ -73,6 +74,7 @@ export class UserProfilePage {
 
   async ngOnInit() {
     this.userProfileForm = this.formBuilder.group({
+      userId: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       position: ['', [Validators.required]],
@@ -81,9 +83,10 @@ export class UserProfilePage {
 
     await this.getUser();
     this.userProfileForm.setValue({
+      userId: [this.user.id],
       firstName: [this.user.firstName],
       lastName: [this.user.lastName],
-      position: [this.user.role],
+      position: [roleEnToFa[this.user.role]],
       email: [this.user.email]
     });
   }
