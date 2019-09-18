@@ -18,11 +18,14 @@ export class ScannedPartPage implements OnInit {
 
   async ngOnInit() {
     this.partForm = this.formBuilder.group({
-      partName: [this.part.name, [Validators.required]],
-      partType: [this.part.type, [Validators.required]],
-      serialNumber: [this.part.serialNumber, [Validators.required]],
-      creator: [this.part.creatorId, [Validators.required]],
-      createdAt: [this.part.createdAt, [Validators.required]]
+      partName: [this.part ? this.part.name : '', [Validators.required]],
+      partType: [this.part ? this.part.type : '', [Validators.required]],
+      serialNumber: [
+        this.part ? this.part.serialNumber : '',
+        [Validators.required]
+      ],
+      creator: [this.part ? this.part.creatorId : '', [Validators.required]],
+      createdAt: [this.part ? this.part.createdAt : '', [Validators.required]]
     });
   }
 }
