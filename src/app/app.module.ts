@@ -14,6 +14,7 @@ import { UserModule } from '../pages/user/user.module';
 import { PartsModule } from '../pages/parts/parts.module';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
+import { PartsProvider } from '../providers/parts/parts';
 import { TokenStorage } from '../storage/token';
 import { UserStorage } from '../storage/user';
 
@@ -37,6 +38,7 @@ import { UserStorage } from '../storage/user';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     QRScanner,
     AuthProvider,
+    PartsProvider,
     TokenStorage,
     UserStorage
   ]
