@@ -22,7 +22,7 @@ export class UserProfilePage {
 
   userIconImage = '../../../../assets/imgs/user.png';
 
-  user: User;
+  user = {} as User;
 
   positionsList = [
     {
@@ -73,21 +73,17 @@ export class UserProfilePage {
   ) {}
 
   async ngOnInit() {
-    this.userProfileForm = this.formBuilder.group({
-      userId: ['', [Validators.required]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      position: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
-    });
-
+    this.setUserProfileFormValues(this.user);
     await this.getUser();
+  }
+
+  setUserProfileFormValues(user: User) {
     this.userProfileForm.setValue({
-      userId: [this.user.id],
-      firstName: [this.user.firstName],
-      lastName: [this.user.lastName],
-      position: [roleEnToFa[this.user.role]],
-      email: [this.user.email]
+      userId: [user ? user.id : ''],
+      firstName: [user ? user.firstName : ''],
+      lastName: [user ? user.lastName : ''],
+      position: [user ? roleEnToFa[user.role] : ''],
+      email: [user ? user.email : '']
     });
   }
 
