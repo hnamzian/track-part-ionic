@@ -88,7 +88,24 @@ export class UserProfilePage {
   }
 
   async getUser() {
-    this.user = await this.userStorage.getUser();
+    const user = await this.userStorage.getUser();
+    if (user) this.user = user;
+    else {
+      const user$ = await this.authProvider.getUserProfile();
+      user$.subscribe(
+        async result => {
+          this.user = result;
+          this.setUserProfileFormValues(this.user);
+          await this.userStorage.setUser(result);
+        },
+        error => {
+          if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+          else {
+            this.showToast(error.error.error.message);
+          }
+        }
+      );
+    }
   }
 
   formErrorCheck() {
