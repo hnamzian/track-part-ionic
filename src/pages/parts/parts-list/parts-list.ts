@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { PartsProvider } from '../../../providers/parts/parts';
-import { Toast, ToastController } from 'ionic-angular';
+import { Toast, ToastController, NavController } from 'ionic-angular';
+import { ScannedPartPage } from '../scanned-part/scanned-part';
 import { Part } from '../../../models/Part';
 
 @Component({
@@ -15,6 +16,7 @@ export class PartsListPage implements OnInit {
   toast: Toast;
 
   constructor(
+    public navCtrl: NavController,
     private qrScanner: QRScanner,
     public toastCtrl: ToastController,
     public partsProvider: PartsProvider
@@ -73,6 +75,8 @@ export class PartsListPage implements OnInit {
             console.log('Scanned something', text);
             this.qrScanner.hide();
             scanSub.unsubscribe();
+            const part = JSON.parse(text);
+            this.navCtrl.push('part', part);
           });
         } else if (status.denied) {
           // camera permission was permanently denied
