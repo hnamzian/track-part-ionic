@@ -101,8 +101,10 @@ export class UserProfilePage {
 
   async getUser() {
     const user = await this.userStorage.getUser();
-    if (user) this.user = user;
-    else {
+    if (user) {
+      this.user = user;
+      this.setUserProfileFormValues(this.user);
+    } else {
       const user$ = await this.authProvider.getUserProfile();
       user$.subscribe(
         async result => {
