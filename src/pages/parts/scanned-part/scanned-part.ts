@@ -1,17 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { Part } from '../../../models/Part';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'scanned-part',
   templateUrl: 'scanned-part.html'
 })
 export class ScannedPartPage implements OnInit {
+  partForm: FormGroup;
+
   part = {} as Part;
 
-  constructor(public navParams: NavParams) {
+  constructor(public navParams: NavParams, public formBuilder: FormBuilder) {
     this.part = this.navParams.get('part');
   }
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.partForm = this.formBuilder.group({
+      partName: [this.part.name, [Validators.required]],
+      partType: [this.part.type, [Validators.required]],
+      serialNumber: [this.part.serialNumber, [Validators.required]],
+      creator: [this.part.creatorId, [Validators.required]],
+      createdAt: [this.part.createdAt, [Validators.required]]
+    });
+  }
 }
