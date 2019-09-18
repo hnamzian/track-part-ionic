@@ -76,7 +76,7 @@ export class PartsListPage implements OnInit {
             this.qrScanner.hide();
             scanSub.unsubscribe();
             const part = JSON.parse(text);
-            this.navCtrl.push('part', part);
+            this.navCtrl.push(ScannedPartPage, { part });
           });
         } else if (status.denied) {
           // camera permission was permanently denied
