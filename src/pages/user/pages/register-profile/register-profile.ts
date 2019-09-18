@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { User } from '../../../../models/User';
+import { roleFaToEn } from '../../../../config/roles';
 
 @Component({
   selector: 'register-profile',
@@ -106,18 +107,11 @@ export class RegisterProfilePage implements OnInit {
     if (errorMessage) {
     }
 
-    const rolePersianName = this.userProfileForm.get('position').value;
-    let roleEnglishName;
-    for (let position of this.positionsList) {
-      if (position.persianName == rolePersianName)
-        roleEnglishName = position.englishName;
-    }
-
     const user = {
       firstName: this.userProfileForm.get('firstName').value,
       lastName: this.userProfileForm.get('lastName').value,
       companyName: this.userProfileForm.get('companyName').value,
-      role: roleEnglishName,
+      role: roleFaToEn[this.userProfileForm.get('position').value],
       password: this.userProfileForm.get('password').value,
       email: this.userProfileForm.get('email').value
     } as User;
