@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { PartsProvider } from '../../../providers/parts/parts';
+import { PartsStorage } from '../../../storage/parts';
 import { Toast, ToastController, NavController } from 'ionic-angular';
 import { ScannedPartPage } from '../scanned-part/scanned-part';
 import { Part } from '../../../models/Part';
@@ -19,7 +20,8 @@ export class PartsListPage implements OnInit {
     public navCtrl: NavController,
     private qrScanner: QRScanner,
     public toastCtrl: ToastController,
-    public partsProvider: PartsProvider
+    public partsProvider: PartsProvider,
+    public partsStorage: PartsStorage
   ) {}
 
   async ngOnInit() {
@@ -54,8 +56,9 @@ export class PartsListPage implements OnInit {
   async getAllParts() {
     const allParts$ = await this.partsProvider.getParts();
     allParts$.subscribe(
-      parts => {
+      async parts => {
         this.allParts = parts;
+        await this.partsStorage.setParts(this.allParts);
       },
       error => {
         if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
@@ -87,7 +90,9 @@ export class PartsListPage implements OnInit {
           this.showToast(status);
         }
       })
-      .catch((e: any) => this.showToast('Error Occured while scanning QR code'));
+      .catch((e: any) =>
+        this.showToast('Error Occured while scanning QR code')
+      );
   }
 
   showToast(message) {
