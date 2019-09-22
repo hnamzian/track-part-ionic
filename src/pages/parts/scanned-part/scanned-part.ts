@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, Toast, ToastController } from 'ionic-angular';
 import { Part } from '../../../models/Part';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -12,7 +12,13 @@ export class ScannedPartPage implements OnInit {
 
   part = {} as Part;
 
-  constructor(public navParams: NavParams, public formBuilder: FormBuilder) {
+  toast: Toast;
+
+  constructor(
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public toastCtrl: ToastController
+  ) {
     this.part = this.navParams.get('part');
   }
 
@@ -27,5 +33,19 @@ export class ScannedPartPage implements OnInit {
       creator: [this.part ? this.part.creatorId : '', [Validators.required]],
       createdAt: [this.part ? this.part.createdAt : '', [Validators.required]]
     });
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: 2000,
+      cssClass: 'toast'
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
