@@ -88,6 +88,24 @@ export class ScannedPartPage implements OnInit {
     );
   }
 
+  async _confirmDelivery(part, sender) {
+    const partId = await this._getPartId(part);
+
+    const delivery$ = await this.partsProvider.confirmDelivery(partId, sender);
+    delivery$.subscribe(
+      parts => {
+        this.showToast('انتقال قطعه با موفقیت انجام گردید');
+        this.navCtrl.push(PartsListPage);
+      },
+      error => {
+        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+        else {
+          this.showToast(error.error.error.message);
+        }
+      }
+    );
+  }
+
   showToast(message) {
     this.toast = this.toastCtrl.create({
       message: message,
