@@ -71,22 +71,23 @@ export class PartsListPage implements OnInit {
       .prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
+          this.qrScanner.show();
+          window.document.getElementsByTagName('body')[0].style.opacity = '0';
+
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            console.log('Scanned something', text);
+            window.document.getElementsByTagName('body')[0].style.opacity = '1';
             this.qrScanner.hide();
             scanSub.unsubscribe();
             const part = JSON.parse(text);
             this.navCtrl.push(ScannedPartPage, { part });
           });
         } else if (status.denied) {
-          // camera permission was permanently denied
-          // you must use QRScanner.openSettings() method to guide the user to the settings page
-          // then they can grant the permission from there
+          this.showToast('Access Denied');
         } else {
-          // permission was denied, but not permanently. You can ask for permission again at a later time.
+          this.showToast(status);
         }
       })
-      .catch((e: any) => console.log('Error is', e));
+      .catch((e: any) => this.showToast('Error Occured while scanning QR code'));
   }
 
   showToast(message) {
