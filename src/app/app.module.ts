@@ -17,6 +17,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { PartsProvider } from '../providers/parts/parts';
 import { TokenStorage } from '../storage/token';
 import { UserStorage } from '../storage/user';
+import { PartsStorage } from '../storage/parts';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -40,7 +41,8 @@ import { UserStorage } from '../storage/user';
     AuthProvider,
     PartsProvider,
     TokenStorage,
-    UserStorage
+    UserStorage,
+    PartsStorage
   ]
 })
 export class AppModule {}
