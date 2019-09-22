@@ -8,6 +8,7 @@ import {
 import { Part } from '../../../models/Part';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PartsProvider } from '../../../providers/parts/parts';
+import { PartsStorage } from '../../../storage/parts';
 import { PartsListPage } from '../parts-list/parts-list';
 
 @Component({
@@ -26,7 +27,8 @@ export class ScannedPartPage implements OnInit {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public toastCtrl: ToastController,
-    public partsProvider: PartsProvider
+    public partsProvider: PartsProvider,
+    public partsStorage: PartsStorage
   ) {
     this.part = this.navParams.get('part');
   }
@@ -42,6 +44,14 @@ export class ScannedPartPage implements OnInit {
       creator: [this.part ? this.part.creatorId : '', [Validators.required]],
       createdAt: [this.part ? this.part.createdAt : '', [Validators.required]]
     });
+  }
+
+  async _getPartId(part) {
+    const allParts = await this.partsStorage.getParts();
+    const filteredPart = allParts.filter(_part => {
+      if (_part.serialNumber == part.serialNumber) return _part.id;
+    });
+    return filteredPart[0];
   }
 
   async _createPart(part) {
