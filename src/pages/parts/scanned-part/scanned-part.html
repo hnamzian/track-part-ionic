@@ -1,5 +1,5 @@
 <ion-content>
-  <form class="form-container" [formGroup]="partForm" (ngSubmit)="action()">
+  <form class="form-container" [formGroup]="partForm">
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>نام قطعه</span>
@@ -22,10 +22,23 @@
         <input class="prep-input" type="text" formControlName="createdAt" />
       </ion-item>
     </ion-list>
-    <button type="submit" class="ab-btn">تولید</button>
-    <button type="submit" class="ab-btn">انتقال</button>
-    <button type="submit" class="ab-btn">ثبت نتیجه آزمایش</button>
-    <button type="submit" class="ab-btn">افزودن به قطعه</button>
-    <button type="submit" class="ab-btn">بازگشت</button>
+    <button type="button" class="ab-btn" (click)="createPart()">
+      تولید
+    </button>
+    <button type="button" class="ab-btn" (click)="deliverPart()">
+      انتقال
+    </button>
+    <button type="button" class="ab-btn" (click)="confirmDelivery()">
+      تایید انتقال
+    </button>
+    <button type="button" class="ab-btn" (click)="testPart()">
+      ثبت نتیجه آزمایش
+    </button>
+    <button type="button" class="ab-btn" (click)="addSubPart()">
+      افزودن به قطعه
+    </button>
+    <button type="button" class="ab-btn" (click)="onSubmit()">
+      بازگشت
+    </button>
   </form>
 </ion-content>
