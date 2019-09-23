@@ -137,7 +137,7 @@ export class ScannedPartPage implements OnInit {
               this.qrScanner.hide();
               scanSub.unsubscribe();
 
-              const sender = JSON.parse(scannedText)
+              const sender = JSON.parse(scannedText);
 
               const partId = await this._getPartId(this.part);
 
@@ -148,6 +148,55 @@ export class ScannedPartPage implements OnInit {
               delivery$.subscribe(
                 parts => {
                   this.showToast('انتقال قطعه با موفقیت انجام گردید');
+                  this.navCtrl.push(PartsListPage);
+                },
+                error => {
+                  if (error.status == 404)
+                    this.showToast('خطا در برقراری ارتباط');
+                  else {
+                    this.showToast(error.error.error.message);
+                  }
+                }
+              );
+            });
+        } else if (status.denied) {
+          this.showToast('Access Denied');
+        } else {
+          this.showToast(status);
+        }
+      })
+      .catch((e: any) =>
+        this.showToast('Error Occured while scanning QR code')
+      );
+  }
+
+  async addSubPart() {
+    this.qrScanner
+      .prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          this.qrScanner.show();
+          window.document.getElementsByTagName('body')[0].style.opacity = '0';
+
+          let scanSub = this.qrScanner
+            .scan()
+            .subscribe(async (scannedText: string) => {
+              window.document.getElementsByTagName('body')[0].style.opacity =
+                '1';
+              this.qrScanner.hide();
+              scanSub.unsubscribe();
+
+              const parentPart = JSON.parse(scannedText);
+
+              const partId = await this._getPartId(this.part);
+
+              const delivery$ = await this.partsProvider.addSubPart(
+                parentPart.id,
+                partId
+              );
+              delivery$.subscribe(
+                parts => {
+                  this.showToast('افزودن به قطعه با موفقیت انجام گردید');
                   this.navCtrl.push(PartsListPage);
                 },
                 error => {
