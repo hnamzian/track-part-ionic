@@ -54,8 +54,8 @@ export class ScannedPartPage implements OnInit {
     return filteredPart[0];
   }
 
-  async _createPart(part) {
-    const part$ = await this.partsProvider.createPart(part);
+  async createPart() {
+    const part$ = await this.partsProvider.createPart(this.part);
     part$.subscribe(
       parts => {
         this.showToast('قطعه جدید با موفقیت افزوده شد');
@@ -70,8 +70,8 @@ export class ScannedPartPage implements OnInit {
     );
   }
 
-  async _deliverPart(part, receiver) {
-    const partId = await this._getPartId(part);
+  async deliverPart(receiver) {
+    const partId = await this._getPartId(this.part);
 
     const delivery$ = await this.partsProvider.deliverPart(partId, receiver);
     delivery$.subscribe(
@@ -88,8 +88,8 @@ export class ScannedPartPage implements OnInit {
     );
   }
 
-  async _confirmDelivery(part, sender) {
-    const partId = await this._getPartId(part);
+  async confirmDelivery(sender) {
+    const partId = await this._getPartId(this.part);
 
     const delivery$ = await this.partsProvider.confirmDelivery(partId, sender);
     delivery$.subscribe(
@@ -106,26 +106,8 @@ export class ScannedPartPage implements OnInit {
     );
   }
 
-  async _cancelDelivery(part, sender) {
-    const partId = await this._getPartId(part);
-
-    const delivery$ = await this.partsProvider.cancelDelivery(partId, sender);
-    delivery$.subscribe(
-      parts => {
-        this.showToast('انتقال قطعه با موفقیت انجام گردید');
-        this.navCtrl.push(PartsListPage);
-      },
-      error => {
-        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
-        else {
-          this.showToast(error.error.error.message);
-        }
-      }
-    );
-  }
-
-  async _testPart(part, testResult) {
-    const partId = await this._getPartId(part);
+  async testPart(testResult) {
+    const partId = await this._getPartId(this.part);
 
     const delivery$ = await this.partsProvider.testPart(partId, testResult);
     delivery$.subscribe(
