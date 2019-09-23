@@ -5,11 +5,7 @@
     <img class="path-img" src="../../../../assets/imgs/Path 33.png" alt="" />
   </div>
 
-  <form
-    class="form-container"
-    [formGroup]="userProfileForm"
-    (ngSubmit)="updateProfile()"
-  >
+  <form class="form-container" [formGroup]="userProfileForm">
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>شماره شناسایی</span>
@@ -52,6 +48,8 @@
         />
       </ion-item>
     </ion-list>
-    <button type="submit" class="ab-btn">ذخیره</button>
+    <button type="button" class="ab-btn" (click)="generateProfileQR()">
+      تولید کد QR
+    </button>
   </form>
 </ion-content>
