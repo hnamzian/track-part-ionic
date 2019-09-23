@@ -5,6 +5,7 @@ import {
   ToastController,
   NavController
 } from 'ionic-angular';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Part } from '../../../models/Part';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PartsProvider } from '../../../providers/parts/parts';
@@ -25,6 +26,7 @@ export class ScannedPartPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public qrScanner: QRScanner,
     public formBuilder: FormBuilder,
     public toastCtrl: ToastController,
     public partsProvider: PartsProvider,
@@ -70,22 +72,53 @@ export class ScannedPartPage implements OnInit {
     );
   }
 
-  async deliverPart(receiver) {
-    const partId = await this._getPartId(this.part);
+  async deliverPart() {
+    this.qrScanner
+      .prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          this.qrScanner.show();
+          window.document.getElementsByTagName('body')[0].style.opacity = '0';
 
-    const delivery$ = await this.partsProvider.deliverPart(partId, receiver);
-    delivery$.subscribe(
-      parts => {
-        this.showToast('درخواست انتقال قطعه با موفقیت ثبت گردید');
-        this.navCtrl.push(PartsListPage);
-      },
-      error => {
-        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
-        else {
-          this.showToast(error.error.error.message);
+          let scanSub = this.qrScanner
+            .scan()
+            .subscribe(async (scannedText: string) => {
+              window.document.getElementsByTagName('body')[0].style.opacity =
+                '1';
+              this.qrScanner.hide();
+              scanSub.unsubscribe();
+
+              const receiver = JSON.parse(scannedText);
+
+              const partId = await this._getPartId(this.part);
+
+              const delivery$ = await this.partsProvider.deliverPart(
+                partId,
+                receiver.id
+              );
+              delivery$.subscribe(
+                parts => {
+                  this.showToast('درخواست انتقال قطعه با موفقیت ثبت گردید');
+                  this.navCtrl.push(PartsListPage);
+                },
+                error => {
+                  if (error.status == 404)
+                    this.showToast('خطا در برقراری ارتباط');
+                  else {
+                    this.showToast(error.error.error.message);
+                  }
+                }
+              );
+            });
+        } else if (status.denied) {
+          this.showToast('Access Denied');
+        } else {
+          this.showToast(status);
         }
-      }
-    );
+      })
+      .catch((e: any) =>
+        this.showToast('Error Occured while scanning QR code')
+      );
   }
 
   async confirmDelivery(sender) {
