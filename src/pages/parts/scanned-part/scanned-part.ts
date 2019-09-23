@@ -121,22 +121,53 @@ export class ScannedPartPage implements OnInit {
       );
   }
 
-  async confirmDelivery(sender) {
-    const partId = await this._getPartId(this.part);
+  async confirmDelivery() {
+    this.qrScanner
+      .prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          this.qrScanner.show();
+          window.document.getElementsByTagName('body')[0].style.opacity = '0';
 
-    const delivery$ = await this.partsProvider.confirmDelivery(partId, sender);
-    delivery$.subscribe(
-      parts => {
-        this.showToast('انتقال قطعه با موفقیت انجام گردید');
-        this.navCtrl.push(PartsListPage);
-      },
-      error => {
-        if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
-        else {
-          this.showToast(error.error.error.message);
+          let scanSub = this.qrScanner
+            .scan()
+            .subscribe(async (scannedText: string) => {
+              window.document.getElementsByTagName('body')[0].style.opacity =
+                '1';
+              this.qrScanner.hide();
+              scanSub.unsubscribe();
+
+              const sender = JSON.parse(scannedText)
+
+              const partId = await this._getPartId(this.part);
+
+              const delivery$ = await this.partsProvider.confirmDelivery(
+                partId,
+                sender.id
+              );
+              delivery$.subscribe(
+                parts => {
+                  this.showToast('انتقال قطعه با موفقیت انجام گردید');
+                  this.navCtrl.push(PartsListPage);
+                },
+                error => {
+                  if (error.status == 404)
+                    this.showToast('خطا در برقراری ارتباط');
+                  else {
+                    this.showToast(error.error.error.message);
+                  }
+                }
+              );
+            });
+        } else if (status.denied) {
+          this.showToast('Access Denied');
+        } else {
+          this.showToast(status);
         }
-      }
-    );
+      })
+      .catch((e: any) =>
+        this.showToast('Error Occured while scanning QR code')
+      );
   }
 
   async testPart(testResult) {
