@@ -7,6 +7,7 @@ import {
   Toast
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProfileQRPage } from '../profile-qr/profile-qr';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { UserStorage } from '../../../../storage/user';
@@ -61,6 +62,8 @@ export class UserProfilePage {
   userPosition;
 
   toast: Toast;
+
+  profileQR = 'sfvdf';
 
   constructor(
     public navCtrl: NavController,
@@ -154,6 +157,15 @@ export class UserProfilePage {
           .setValue(this.userPosition.persianName);
       }
     });
+  }
+
+  generateProfileQR() {
+    const qrPopover = this.popoverCtrl.create(
+      ProfileQRPage,
+      { profile: this.user },
+      { cssClass: 'qrProfilePopover' }
+    );
+    qrPopover.present();
   }
 
   showToast(message) {
