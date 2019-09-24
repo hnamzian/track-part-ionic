@@ -7,10 +7,12 @@ import {
   Toast
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProfileQRPage } from '../profile-qr/profile-qr';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { UserStorage } from '../../../../storage/user';
 import { User } from '../../../../models/User';
+import { roleEnToFa } from '../../../../config/roles';
 
 @Component({
   selector: 'user-profile',
@@ -21,7 +23,7 @@ export class UserProfilePage {
 
   userIconImage = '../../../../assets/imgs/user.png';
 
-  user: User;
+  user = {} as User;
 
   positionsList = [
     {
@@ -61,6 +63,8 @@ export class UserProfilePage {
 
   toast: Toast;
 
+  profileQR = 'sfvdf';
+
   constructor(
     public navCtrl: NavController,
     public toastCtrl: ToastController,
@@ -72,24 +76,53 @@ export class UserProfilePage {
   ) {}
 
   async ngOnInit() {
+    this.intiateUserProfileForm();
+    await this.getUser();
+  }
+
+  intiateUserProfileForm() {
     this.userProfileForm = this.formBuilder.group({
+      userId: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
+      companyName: ['', [Validators.required]],
       position: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     });
+  }
 
-    await this.getUser();
+  setUserProfileFormValues(user: User) {
     this.userProfileForm.setValue({
-      firstName: [this.user.firstName],
-      lastName: [this.user.lastName],
-      position: [this.user.role],
-      email: [this.user.email]
+      userId: [user ? user.id : ''],
+      firstName: [user ? user.firstName : ''],
+      lastName: [user ? user.lastName : ''],
+      companyName: [user ? user.companyName : ''],
+      position: [user ? roleEnToFa[user.role] : ''],
+      email: [user ? user.email : '']
     });
   }
 
   async getUser() {
-    this.user = await this.userStorage.getUser();
+    const user = await this.userStorage.getUser();
+    if (user) {
+      this.user = user;
+      this.setUserProfileFormValues(this.user);
+    } else {
+      const user$ = await this.authProvider.getUserProfile();
+      user$.subscribe(
+        async result => {
+          this.user = result;
+          this.setUserProfileFormValues(this.user);
+          await this.userStorage.setUser(result);
+        },
+        error => {
+          if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+          else {
+            this.showToast(error.error.error.message);
+          }
+        }
+      );
+    }
   }
 
   formErrorCheck() {
@@ -124,6 +157,15 @@ export class UserProfilePage {
           .setValue(this.userPosition.persianName);
       }
     });
+  }
+
+  generateProfileQR() {
+    const qrPopover = this.popoverCtrl.create(
+      ProfileQRPage,
+      { profile: this.user },
+      { cssClass: 'qrProfilePopover' }
+    );
+    qrPopover.present();
   }
 
   showToast(message) {

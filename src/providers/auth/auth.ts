@@ -30,7 +30,7 @@ export class AuthProvider {
   }
 
   async loginUser(email, password) {
-    const url = this.baseUrl;
+    const url = `${this.baseUrl}/login`;
 
     return this.http.post(url, { email, password }).pipe(
       map(result => {
@@ -40,7 +40,7 @@ export class AuthProvider {
   }
 
   async getUserProfile() {
-    const url = this.baseUrl;
+    const url = `${this.baseUrl}/me`;
 
     const authToken = await this.tokenStorage.getAuthToken();
 

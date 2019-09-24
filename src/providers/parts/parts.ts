@@ -40,6 +40,33 @@ export class PartsProvider {
       );
   }
 
+  async getParts() {
+    const url = this.baseUrl;
+
+    const authToken = await this.tokenStorage.getAuthToken();
+
+    if (!authToken) return Observable.of({} as Part[]);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: authToken
+      })
+    };
+
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(
+        map((result: Part[]) => {
+          return result;
+        })
+      );
+  }
+
   async getPartByType(partType) {
     const url = this.baseUrl;
 
