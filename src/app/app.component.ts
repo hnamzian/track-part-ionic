@@ -15,7 +15,7 @@ import { User } from '../models/User';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any;
 
   user: User;
 
@@ -36,27 +36,27 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      //   const authToken = await tokenStorage.getAuthToken();
-      //   if (!authToken) {
-      //     this.rootPage = LoginPage;
-      //     return;
-      //   }
+      const authToken = await tokenStorage.getAuthToken();
+      if (!authToken) {
+        this.rootPage = LoginPage;
+        return;
+      }
 
-      //   const user$ = await authProvider.getUserProfile();
-      //   user$.subscribe(
-      //     async result => {
-      //       this.user = result;
-      //       await userStorage.setUser(this.user);
-      //       this.rootPage = HomePage;
-      //     },
-      //     error => {
-      //       if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
-      //       else {
-      //         this.showToast(error.error.error.message);
-      //       }
-      //       this.rootPage = LoginPage;
-      //     }
-      //   );
+      const user$ = await authProvider.getUserProfile();
+      user$.subscribe(
+        async result => {
+          this.user = result;
+          await userStorage.setUser(this.user);
+          this.rootPage = HomePage;
+        },
+        error => {
+          if (error.status == 404) this.showToast('خطا در برقراری ارتباط');
+          else {
+            this.showToast(error.error.error.message);
+          }
+          this.rootPage = LoginPage;
+        }
+      );
     });
   }
 
