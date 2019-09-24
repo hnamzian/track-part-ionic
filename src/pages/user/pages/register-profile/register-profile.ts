@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectListComponent } from '../../../core/components/select-list/select-list';
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { User } from '../../../../models/User';
-import { roleFaToEn } from '../../../../config/roles';
+import { roleFaToEn, positionsList } from '../../../../config/roles';
 import { LoginPage } from '../../../auth/pages/login/login';
 
 @Component({
@@ -24,40 +24,6 @@ export class RegisterProfilePage implements OnInit {
 
   userProfileForm: FormGroup;
 
-  positionsList = [
-    {
-      englishName: 'BOARD_CREATOR',
-      persianName: 'تولید کننده بورد'
-    },
-    {
-      englishName: 'BOARD_TESTER',
-      persianName: 'آزمایش کننده بورد'
-    },
-    {
-      englishName: 'RAK_CREATOR',
-      persianName: 'تولید کننده رک'
-    },
-    {
-      englishName: 'BRAK_TESTER',
-      persianName: 'آزمایش کننده رک'
-    },
-    {
-      englishName: 'SYSTEM_CREATOR',
-      persianName: 'تولید کننده سیستم'
-    },
-    {
-      englishName: 'SYSTEM_TESTER',
-      persianName: 'آزمایش کننده سیستم'
-    },
-    {
-      englishName: 'PC_CONNECTOR',
-      persianName: 'نصب کننده رایانه'
-    },
-    {
-      englishName: 'ANTENNA_CONNECTOR',
-      persianName: 'نصب کننده آنتن'
-    }
-  ];
   userPosition;
 
   toast: Toast;
@@ -129,7 +95,7 @@ export class RegisterProfilePage implements OnInit {
   openPositionsList() {
     let popover = this.popoverCtrl.create(
       SelectListComponent,
-      { itemsList: this.positionsList },
+      { itemsList: positionsList.roles },
       { cssClass: 'listPopover' }
     );
     popover.present();
