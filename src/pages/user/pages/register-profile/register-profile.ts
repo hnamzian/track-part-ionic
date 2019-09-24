@@ -10,6 +10,7 @@ import { SelectListComponent } from '../../../core/components/select-list/select
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { User } from '../../../../models/User';
 import { roleFaToEn } from '../../../../config/roles';
+import { LoginPage } from '../../../auth/pages/login/login';
 
 @Component({
   selector: 'register-profile',
@@ -119,7 +120,7 @@ export class RegisterProfilePage implements OnInit {
     let user$ = await this.authProvider.registerUser(user);
     user$.subscribe(
       user => {
-        console.log(user);
+        this.navCtrl.push(LoginPage);
       },
       error => console.log(error)
     );
