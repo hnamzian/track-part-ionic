@@ -12,7 +12,7 @@ import { SelectListComponent } from '../../../core/components/select-list/select
 import { AuthProvider } from '../../../../providers/auth/auth';
 import { UserStorage } from '../../../../storage/user';
 import { User } from '../../../../models/User';
-import { roleEnToFa } from '../../../../config/roles';
+import { roleEnToFa, positionsList } from '../../../../config/roles';
 
 @Component({
   selector: 'user-profile',
@@ -25,40 +25,6 @@ export class UserProfilePage {
 
   user = {} as User;
 
-  positionsList = [
-    {
-      englishName: 'BOARD_CREATOR',
-      persianName: 'تولید کننده بورد'
-    },
-    {
-      englishName: 'BOARD_TESTER',
-      persianName: 'آزمایش کننده بورد'
-    },
-    {
-      englishName: 'RAK_CREATOR',
-      persianName: 'تولید کننده رک'
-    },
-    {
-      englishName: 'BRAK_TESTER',
-      persianName: 'آزمایش کننده رک'
-    },
-    {
-      englishName: 'SYSTEM_CREATOR',
-      persianName: 'تولید کننده سیستم'
-    },
-    {
-      englishName: 'SYSTEM_TESTER',
-      persianName: 'آزمایش کننده سیستم'
-    },
-    {
-      englishName: 'PC_CONNECTOR',
-      persianName: 'نصب کننده رایانه'
-    },
-    {
-      englishName: 'ANTENNA_CONNECTOR',
-      persianName: 'نصب کننده آنتن'
-    }
-  ];
   userPosition;
 
   toast: Toast;
@@ -145,7 +111,7 @@ export class UserProfilePage {
   openPositionsList() {
     let popover = this.popoverCtrl.create(
       SelectListComponent,
-      { itemsList: this.positionsList },
+      { itemsList: positionsList.roles },
       { cssClass: 'listPopover' }
     );
     popover.present();

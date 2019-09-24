@@ -19,3 +19,40 @@ export var roleFaToEn = {
   'نصب کننده رایانه': 'PC_CONNECTOR',
   'نصب کننده آنتن': 'ANTENNA_CONNECTOR'
 };
+
+export var positionsList = {
+  roles: [
+    {
+      englishName: 'BOARD_CREATOR',
+      persianName: 'تولید کننده بورد'
+    },
+    {
+      englishName: 'BOARD_TESTER',
+      persianName: 'آزمایش کننده بورد'
+    },
+    {
+      englishName: 'RAK_CREATOR',
+      persianName: 'تولید کننده رک'
+    },
+    {
+      englishName: 'BRAK_TESTER',
+      persianName: 'آزمایش کننده رک'
+    },
+    {
+      englishName: 'SYSTEM_CREATOR',
+      persianName: 'تولید کننده سیستم'
+    },
+    {
+      englishName: 'SYSTEM_TESTER',
+      persianName: 'آزمایش کننده سیستم'
+    },
+    {
+      englishName: 'PC_CONNECTOR',
+      persianName: 'نصب کننده رایانه'
+    },
+    {
+      englishName: 'ANTENNA_CONNECTOR',
+      persianName: 'نصب کننده آنتن'
+    }
+  ]
+};
